@@ -35,7 +35,7 @@ metadata {
         
         attribute "batteryLastReplaced", "String"
 
-        fingerprint endpointId: "E8", inClusters: "", outClusters: "", model: "", manufacturer: "" application: ""
+        fingerprint endpointId: "E8", inClusters: "", outClusters: "", model: "", manufacturer: "", application: ""
     }
     
     preferences {
