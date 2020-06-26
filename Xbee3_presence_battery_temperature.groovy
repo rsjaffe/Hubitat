@@ -24,7 +24,7 @@
  *    2020-06-26  rsjaffe        added temperature monitoring, requires updated main.py
  */
 metadata {
-    definition (name: "XBee3 Presence 2020-06-22", namespace: "dan.t", author: "Daniel Terryn") {
+    definition (name: "XBee3 Presence V/T", namespace: "dan.t", author: "Daniel Terryn") {
         capability "Sensor"
         capability "Configuration"
         capability "Battery"
@@ -34,6 +34,8 @@ metadata {
         command "resetBatteryReplacedDate"
         
         attribute "batteryLastReplaced", "String"
+
+        fingerprint endpointId: "E8", inClusters: "", outClusters: "", model: "", manufacturer: "" application: ""
     }
     
     preferences {
@@ -58,7 +60,6 @@ def updated() {
 }
 
 def installed() {
-// Arrival sensors only goes OFFLINE when Hub is off
 }
 
 def configure() {
@@ -80,8 +81,7 @@ private Map parseCatchAllMessage(String description) {
     def cluster = zigbee.parse(description)
     if (cluster.clusterId == 0x0011 && cluster.command == 0x01){
         handleBatteryEvent(cluster)
-    }   
-    if (cluster.clusterId == 0x0011 && cluster.command == 0x02){
+    } else if (cluster.clusterId == 0x0011 && cluster.command == 0x02){
         handleTemperatureEvent(cluster)
     } 
     return resultMap
@@ -94,9 +94,9 @@ private handleTemperatureEvent(cluster) {
         temperature_string = temperature_string + Integer.toString(element,16).padLeft(2, '0')
     }
     temperature_c = Integer.parseInt(temperature_string) / 100
-    if (logDesc) log.info "Temperature_100: ${temperature_c}"
+    if (logDesc) log.info "Temperature: ${temperature_c}"
     def linkText = getLinkText(device)
-    descriptionText = "${linkText} XBee chip temperature (C) is ${temperature_c}C"
+    descriptionText = "${linkText} XBee chip temperature is ${temperature_c}C"
     def eventMap = [
         name: 'temperature',
         value: temperature_c,
