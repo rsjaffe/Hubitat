@@ -34,8 +34,6 @@ metadata {
         command "resetBatteryReplacedDate"
         
         attribute "batteryLastReplaced", "String"
-
-        fingerprint endpointId: "E8", inClusters: "", outClusters: "", model: "", manufacturer: "", application: ""
     }
     
     preferences {
