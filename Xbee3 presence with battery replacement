@@ -28,6 +28,7 @@ metadata {
         capability "Configuration"
         capability "Battery"
         capability "Presence Sensor"
+        capability "Temperature Measurement"
 
         command "resetBatteryReplacedDate"
         
@@ -79,9 +80,33 @@ private Map parseCatchAllMessage(String description) {
     if (cluster.clusterId == 0x0011 && cluster.command == 0x01){
         handleBatteryEvent(cluster)
     }   
+    if (cluster.clusterId == 0x0011 && cluster.command == 0x02){
+        handleTemperatureEvent(cluster)
+    } 
     return resultMap
 }
 
+private handleTemperatureEvent(cluster) {
+    def descriptionText   
+    def temperature_string = ""
+    for (element in cluster.data) {
+        temperature_string = temperature_string + Integer.toString(element,16).padLeft(2, '0')
+    }
+    temperature_c = Integer.parseInt(temperature_string) / 100
+    if (logDesc) log.info "Temperature_100: ${temperature_c}"
+    def linkText = getLinkText(device)
+    descriptionText = "${linkText} XBee chip temperature (C) is ${temperature_c}C"
+    def eventMap = [
+        name: 'temperature',
+        value: temperature_c,
+        unit: "C",
+        descriptionText: descriptionText,
+        translatable: true,
+        type: "digital"
+    ]
+    if (logEnable) log.debug "Creating temperature event for temperature=${temperature_c}C: ${linkText} ${eventMap.name} is ${eventMap.value}C"
+    sendEvent(eventMap)      
+}
 /**
  * Create battery event from reported battery voltage.
  *
