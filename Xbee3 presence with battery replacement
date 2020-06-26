@@ -21,6 +21,7 @@
  *    2020-01-08  N0W0n          added 10 minute departure option and battery replace date
  *    2020-03-09  N0W0n          added 15 and 30 minute departure time
  *    2020-06-22  N0W0n          general house cleaning
+ *    2020-06-26  rsjaffe        added temperature monitoring, requires updated main.py
  */
 metadata {
     definition (name: "XBee3 Presence 2020-06-22", namespace: "dan.t", author: "Daniel Terryn") {
