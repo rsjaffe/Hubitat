@@ -56,6 +56,7 @@ def updated() {
 }
 
 def installed() {
+    resetBatteryReplacedDate(true)
 }
 
 def parse(String description) {
