@@ -25,8 +25,6 @@
  */
 metadata {
     definition (name: "XBee3 Presence V/T", namespace: "dan.t", author: "Daniel Terryn") {
-        capability "Sensor"
-        capability "Configuration"
         capability "Battery"
         capability "Presence Sensor"
         capability "Temperature Measurement"
@@ -39,8 +37,8 @@ metadata {
     preferences {
         input "fullVoltageValue", "enum", title:"Battery 100% mV:", required:true, defaultValue:3300, options:[3000:"3000 mV",3300:"3300 mV",3600:"3600 mV"]
         input "checkInterval", "enum", title:"Minutes elapsed until sensor is not present", required:true, defaultValue:3, options:[1:"1 Minute",2:"2 Minutes",3:"3 Minutes", 4:"4 Minutes",5:"5 Minutes",10:"10 Minutes",15:"15 Minutes",30:"30 Minutes"]
-        input name: "logEnable", type: "bool", title: "Enable debug logging", defaultValue: false
-        input name: "logDesc", type: "bool", title: "Enable descriptionText logging", defaultValue: true
+        input name: "logDebug", type: "bool", title: "Enable debug logging", defaultValue: false
+        input name: "logDesc", type: "bool", title: "Enable description text logging", defaultValue: true
     }
 }
 
@@ -54,15 +52,10 @@ def resetBatteryReplacedDate(paired) {
 def updated() {
     stopTimer()
     startTimer()
-    if (logEnable) runIn(1800,logsOff)
+    if (logDebug) runIn(1800,logsOff)
 }
 
 def installed() {
-}
-
-def configure() {
-    log.warn "configure..."
-    return []
 }
 
 def parse(String description) {
@@ -103,7 +96,7 @@ private handleTemperatureEvent(cluster) {
         translatable: true,
         type: "digital"
     ]
-    if (logEnable) log.debug "Creating temperature event for temperature=${temperature_c}C: ${linkText} ${eventMap.name} is ${eventMap.value}C"
+    if (logDebug) log.debug "Creating temperature event for temperature=${temperature_c}C: ${linkText} ${eventMap.name} is ${eventMap.value}C"
     sendEvent(eventMap)      
 }
 /**
@@ -118,7 +111,6 @@ private handleBatteryEvent(cluster) {
         battery_string = battery_string + Integer.toString(element,16).padLeft(2, '0')
     }
     battery_mV = Integer.parseInt(battery_string)
-    // log.debug "Battery mV: ${battery_mV}"
     if (logDesc) log.info "Battery mV: ${battery_mV}"
     def value = 100
     if (battery_mV <= 2100) {
@@ -148,7 +140,7 @@ private handleBatteryEvent(cluster) {
         translatable: true,
         type: "digital"
     ]
-    if (logEnable) log.debug "Creating battery event for voltage=${battery_mV/1000}V: ${linkText} ${eventMap.name} is ${eventMap.value}%"
+    if (logDebug) log.debug "Creating battery event for voltage=${battery_mV/1000}V: ${linkText} ${eventMap.name} is ${eventMap.value}%"
     sendEvent(eventMap)  
 }
 
@@ -161,7 +153,7 @@ private handlePresenceEvent(present) {
         if (logDesc) log.info "Sensor is not present"
         stopTimer()
     } else if (wasPresent && present) {
-        if (logEnable) log.debug "Sensor already present"
+        if (logDebug) log.debug "Sensor already present"
         return
     }
     def linkText = getLinkText(device)
@@ -178,25 +170,24 @@ private handlePresenceEvent(present) {
         translatable: true,
         type: "digital"
     ]
-    if (logEnable) log.debug "Creating presence event: ${device.displayName} ${eventMap.name} is ${eventMap.value}"
+    if (logDebug) log.debug "Creating presence event: ${device.displayName} ${eventMap.name} is ${eventMap.value}"
     sendEvent(eventMap)
 }
 
 private startTimer() {
-    if (logEnable) log.debug "Scheduling periodic timer"
+    if (logDebug) log.debug "Scheduling periodic timer"
     runEvery1Minute("checkPresenceCallback")
 }
 
 private stopTimer() {
-    if (logEnable) log.debug "Stopping periodic timer"
-    // Always unschedule to handle the case where the DTH was running in the cloud and is now running locally
+    if (logDebug) log.debug "Stopping periodic timer"
     unschedule("checkPresenceCallback")
 }
 
 def checkPresenceCallback() {
     def timeSinceLastCheckin = (now() - state.lastCheckin ?: 0) / 1000
     def theCheckInterval = Integer.parseInt(checkInterval) * 60
-    if (logEnable) log.debug "Sensor checked in ${timeSinceLastCheckin} seconds ago"
+    if (logDebug) log.debug "Sensor checked in ${timeSinceLastCheckin} seconds ago"
     if (timeSinceLastCheckin >= theCheckInterval) {
         handlePresenceEvent(false)
     }
@@ -204,5 +195,5 @@ def checkPresenceCallback() {
 
 def logsOff(){
     log.warn "debug logging disabled..."
-    device.updateSetting("logEnable",[value:"false",type:"bool"])
+    device.updateSetting("logDebug",[value:"false",type:"bool"])
 }
