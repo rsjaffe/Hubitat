@@ -1,0 +1,9 @@
+{
+  "packageName": "XBee3",
+  "author": "Rory Jaffe",
+  "version": "1.0.0",
+  "minimumHEVersion": "0.0",
+  "licenseFile": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+  "communityLink": "https://community.hubitat.com/t/made-a-set-of-xbee3-repeaters-in-cases/44049?u=rsjaffe",
+  "dateReleased": "2020-06-28"
+}
