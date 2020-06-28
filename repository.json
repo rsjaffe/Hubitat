@@ -1,4 +1,12 @@
 {
   "author": "Rory Jaffe",
-  "gitHubUrl": "https://github.com/rsjaffe/Hubitat"
+  "gitHubUrl": "https://github.com/rsjaffe/Hubitat",
+  "packages": [
+    {
+      "name": "XBee3",
+      "category": "Integrations",
+      "location": "https://raw.githubusercontent.com/rsjaffe/Hubitat/master/Xbee3/packageManifest.json",
+      "description": "Driver for XBee3 configured to report voltage and chip temperature"
+    }
+  ]
 }
