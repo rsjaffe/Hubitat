@@ -11,7 +11,7 @@
  *  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed
  *  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
  *  for the specific language governing permissions and limitations under the License.
- *  VERSION 1.0.0
+ *  VERSION 1.0.1
  *  Change History:
  *
  *    Date        Who            What
@@ -24,7 +24,7 @@
  *    2020-06-26  rsjaffe        added temperature monitoring, requires updated main.py
  */
 metadata {
-    definition (name: "XBee3 Presence V/T", namespace: "dan.t", author: "Daniel Terryn") {
+    definition (name: "XBee3 Presence V/T", namespace: "dan.t", author: "Daniel Terryn" importUrl: "https://raw.githubusercontent.com/rsjaffe/Hubitat/master/Xbee3/Xbee3_presence_battery_temperature.groovy") {
         capability "Battery"
         capability "Presence Sensor"
         capability "Temperature Measurement"

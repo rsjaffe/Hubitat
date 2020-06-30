@@ -11,15 +11,15 @@ while True:
 		xbee.transmit(xbee.ADDR_COORDINATOR, binascii.unhexlify(tx_req))
 	except:
 		print("Error occured to send package, probably not connected to ZigBee network")
-	beacon_temperature = x.atcmd('TP')
-	print("Temperature at " + str(beacon_temperature))
-	# convert unsigned 16-bit value to signed beacon_temperature
-	if beacon_temperature > 0x7FFF:
-		beacon_temperature = beacon_temperature - 0x10000
-	beacon_temperature = beacon_temperature * 100
-	tempstr = str(beacon_temperature)
-	msglen = "%0.2X" % (2 + len(tempstr))
-	tx_req = ("7E"+"00"+msglen+"2D"+"02"+tempstr)
+	beeTemp = x.atcmd('TP')
+	print("Temperature at " + str(beeTemp))
+	# convert unsigned 16-bit value to signed beeTemp
+	if beeTemp > 0x7FFF:
+		beeTemp = beeTemp - 0x10000
+	beeTemp = beeTemp * 100
+	tempStr = str(beeTemp)
+	msgLen = "%0.2X" % (2 + len(tempStr))
+	tx_req = ("7E"+"00"+msgLen+"2D"+"02"+tempStr)
 	try:
 		xbee.transmit(xbee.ADDR_COORDINATOR, binascii.unhexlify(tx_req))
 	except:
