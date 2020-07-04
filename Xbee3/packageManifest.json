@@ -1,18 +1,18 @@
 {
-  "packageName": "XBee3",
   "author": "Rory Jaffe",
-  "version": "1.0.1",
-  "minimumHEVersion": "0.0",
-  "licenseFile": "https://www.apache.org/licenses/LICENSE-2.0.txt",
   "communityLink": "https://community.hubitat.com/t/made-a-set-of-xbee3-repeaters-in-cases/44049?u=rsjaffe",
   "dateReleased": "2020-06-28",
   "drivers": [
     {
       "id": "fc0cc574-4614-4406-aa0b-3c2d97fa3664",
+      "location": "https://raw.githubusercontent.com/rsjaffe/Hubitat/master/Xbee3/Xbee3_presence_battery_temperature.groovy",
       "name": "XBee3 Presence V/T",
       "namespace": "dan.t",
-      "location": "https://raw.githubusercontent.com/rsjaffe/Hubitat/master/Xbee3/Xbee3_presence_battery_temperature.groovy",
       "required": true
     }
-  ]
+  ],
+  "licenseFile": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+  "minimumHEVersion": "0.0",
+  "packageName": "XBee3",
+  "version": "1.0.1"
 }

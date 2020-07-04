@@ -3,10 +3,14 @@
   "gitHubUrl": "https://github.com/rsjaffe/Hubitat",
   "packages": [
     {
-      "name": "XBee3",
       "category": "Integrations",
+      "description": "Driver for XBee3 configured to report voltage and chip temperature",
       "location": "https://raw.githubusercontent.com/rsjaffe/Hubitat/master/Xbee3/packageManifest.json",
-      "description": "Driver for XBee3 configured to report voltage and chip temperature"
+      "name": "XBee3",
+      "tags": [
+        "Repeaters & Extenders",
+        "Zigbee"
+      ]
     }
   ]
 }
