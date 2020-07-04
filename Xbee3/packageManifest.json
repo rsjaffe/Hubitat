@@ -1,7 +1,7 @@
 {
   "author": "Rory Jaffe",
   "communityLink": "https://community.hubitat.com/t/made-a-set-of-xbee3-repeaters-in-cases/44049?u=rsjaffe",
-  "dateReleased": "2020-06-28",
+  "dateReleased": "2020-06-30",
   "drivers": [
     {
       "id": "fc0cc574-4614-4406-aa0b-3c2d97fa3664",
