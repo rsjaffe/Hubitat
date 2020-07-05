@@ -24,7 +24,7 @@
  *    2020-06-26  rsjaffe        added temperature monitoring, requires updated main.py
  */
 metadata {
-    definition (name: "XBee3 Presence V/T", namespace: "dan.t", author: "Daniel Terryn" importUrl: "https://raw.githubusercontent.com/rsjaffe/Hubitat/master/Xbee3/Xbee3_presence_battery_temperature.groovy") {
+    definition (name: "XBee3 Presence V/T", namespace: "dan.t", author: "Daniel Terryn", importUrl: "https://raw.githubusercontent.com/rsjaffe/Hubitat/master/Xbee3/Xbee3_presence_battery_temperature.groovy") {
         capability "Battery"
         capability "Presence Sensor"
         capability "Temperature Measurement"
